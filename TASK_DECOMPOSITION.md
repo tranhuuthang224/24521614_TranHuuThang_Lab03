@@ -12,10 +12,20 @@
   - Commit 1: `feat(ex1): implement semantic DeveloperCard and SkillBadge`
   - Commit 2: `style(ex1): add responsive 375px CSS module`
 
+## Exercise 2: Interactive Scientist & Pioneer Directory (Derived State Engine)
+- [x] Task 2.1: Normalize Slide 20's `smartPeople` schema with stable entity IDs (`sp-1` to `sp-6`)
+- [ ] Task 2.2: Implement case-insensitive search, min-IQ filter (`valueAsNumber`), and immutable `.toSorted()` without `useEffect`
+- [ ] Task 2.3: Implement immutable delete (`prev.filter(p => p.id !== id)`), reset snapshot, and `<output role="status" aria-live="polite">`
+- [ ] Task 2.4: Atomic Git Commits:
+  - Commit 1: `feat(ex2): normalize smartPeople schema with stable IDs`
+  - Commit 2: `feat(ex2): add search, IQ filter & toSorted`
+  - Commit 3: `feat(ex2): add delete/reset & live status`
+
 ## Invariants Verified:
-1. **Zero Div-Soup**: Exactly 0 `<div>` elements inside `DeveloperCard.jsx` and `SkillBadge.jsx`.
-2. **HTTPS Only**: 0 insecure `http://` origins in component media.
-3. **Zero CLS**: Explicit `width="96"` and `height="96"` attributes preventing Cumulative Layout Shift.
-4. **Accessibility Tree**: Semantic hierarchy matches `<article>` -> `<header>` + `<dl>` + `<ul>`.
-5. **375px Responsive Contract**: Zero horizontal scroll on iPhone SE viewport (fluid layout with zero overflow).
-6. **Atomic Git Log**: 2 commits adhering strictly to Conventional Commits specification.
+1. **Zero Div-Soup (Ex 1)**: Exactly 0 `<div>` elements inside `DeveloperCard.jsx` and `SkillBadge.jsx`.
+2. **HTTPS Only (Ex 1)**: 0 insecure `http://` origins in component media.
+3. **Zero CLS (Ex 1)**: Explicit width and height attributes preventing Cumulative Layout Shift.
+4. **Zero useEffect (Ex 2)**: Exactly 0 `useEffect` hooks for filtering/sorting; 100% pure derived state.
+5. **Form A11y & Number Safety (Ex 2)**: All controls bound via `useId()` and `<label htmlFor>`; numeric parsing via `e.target.valueAsNumber`.
+6. **Immutable Operations (Ex 2)**: Sorting via ES2023 `.toSorted()` and deletions via pure array filtering.
+7. **Single Render Pass**: Keystrokes trigger exactly 1 render cycle with zero cascading re-renders.
