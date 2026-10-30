@@ -29,6 +29,8 @@ console.log('======================================================\n');
 // 1. Verify Zero Div-Soup
 const devCardPath = path.join(rootDir, 'src', 'components', 'DeveloperCard.jsx');
 const skillBadgePath = path.join(rootDir, 'src', 'components', 'SkillBadge.jsx');
+const devCardCssPath = path.join(rootDir, 'src', 'components', 'DeveloperCard.module.css');
+const skillBadgeCssPath = path.join(rootDir, 'src', 'components', 'SkillBadge.module.css');
 
 if (!fs.existsSync(devCardPath)) {
   console.error(`Missing file: ${devCardPath}`);
@@ -39,7 +41,7 @@ const devCardContent = fs.readFileSync(devCardPath, 'utf8');
 const divMatches = devCardContent.match(/<div[\s>]/gi) || [];
 assert(
   divMatches.length === 0,
-  'ZERO <div> soup in DeveloperCard.jsx',
+  'ZERO <div> soup inside DeveloperCard.jsx (Strict Constraint)',
   `Found ${divMatches.length} <div> tags`
 );
 
@@ -48,7 +50,7 @@ if (fs.existsSync(skillBadgePath)) {
   const skillDivs = skillContent.match(/<div[\s>]/gi) || [];
   assert(
     skillDivs.length === 0,
-    'ZERO <div> soup in SkillBadge.jsx',
+    'ZERO <div> soup inside SkillBadge.jsx (Strict Constraint)',
     `Found ${skillDivs.length} <div> tags`
   );
 }
@@ -61,7 +63,7 @@ assert(
   `Found ${httpMatches.length} http:// occurrences`
 );
 
-// 3. Verify Required Semantic Tags
+// 3. Verify Required Semantic HTML5 Tags
 const requiredTags = ['article', 'header', 'hgroup', 'dl', 'dt', 'dd', 'ul', 'li'];
 requiredTags.forEach((tag) => {
   const tagRegex = new RegExp(`<${tag}[\\s>]`, 'i');
@@ -71,7 +73,7 @@ requiredTags.forEach((tag) => {
   );
 });
 
-// 4. Verify Zero CLS Image Dimensions & Fallback
+// 4. Verify Zero CLS Image Dimensions & Fallback Resilience
 const hasWidthAttr = /width=["']?\d+["']?/i.test(devCardContent) || /width=\{?\d+\}?/i.test(devCardContent);
 const hasHeightAttr = /height=["']?\d+["']?/i.test(devCardContent) || /height=\{?\d+\}?/i.test(devCardContent);
 assert(
@@ -85,6 +87,29 @@ assert(
   hasFallback,
   'Fallback initials / onError handler present for avatar loading resilience'
 );
+
+// 5. Verify CSS Modules & Slide 18 Mint (#d0f0c0) Replacement
+assert(
+  fs.existsSync(devCardCssPath),
+  'DeveloperCard.module.css exists for modular styling'
+);
+
+if (fs.existsSync(devCardCssPath)) {
+  const cssContent = fs.readFileSync(devCardCssPath, 'utf8');
+  const hasMintVar = /#d0f0c0/i.test(cssContent);
+  assert(
+    hasMintVar,
+    'Slide 18 legacy mint #d0f0c0 preserved via CSS Custom Properties in CSS Module',
+    '#d0f0c0 not found in DeveloperCard.module.css'
+  );
+
+  const has375pxMedia = /@media[^{]*max-width:\s*375px/i.test(cssContent);
+  assert(
+    has375pxMedia,
+    '375px Responsive Contract enforced via @media (max-width: 375px)',
+    'Missing 375px responsive breakpoint in DeveloperCard.module.css'
+  );
+}
 
 // Summary
 console.log('\n------------------------------------------------------');

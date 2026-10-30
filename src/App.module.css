@@ -1,0 +1,164 @@
+/**
+ * App.module.css
+ * Page level styles for showcasing Exercise 1 DeveloperCard components.
+ */
+
+.appContainer {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 2rem 1rem;
+  background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b0f19 100%);
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.appHeader {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.appTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #d0f0c0 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.appSubtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tabNavigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  padding: 0 0.5rem;
+}
+
+.tabButton {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  background: rgba(51, 65, 85, 0.9);
+  color: #f8fafc;
+  border-color: rgba(208, 240, 192, 0.4);
+}
+
+.tabButtonActive {
+  background: rgba(208, 240, 192, 0.15);
+  border-color: #d0f0c0;
+  color: #d0f0c0;
+  box-shadow: 0 0 12px rgba(208, 240, 192, 0.25);
+}
+
+.themeToggleSection {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.themeToggleButton {
+  background: transparent;
+  border: 1px solid #d0f0c0;
+  color: #d0f0c0;
+  font-size: 0.775rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.themeToggleButton:hover {
+  background: rgba(208, 240, 192, 0.2);
+}
+
+.cardStage {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+/* Simulator Container for verifying 375px responsiveness */
+.simulatorContainer {
+  margin-top: 1rem;
+  padding: 1rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.simulatorLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.simulatorFrame {
+  width: 375px;
+  max-width: 100%;
+  border: 2px dashed rgba(208, 240, 192, 0.4);
+  border-radius: 16px;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+@media (max-width: 375px) {
+  .appContainer {
+    padding: 1rem 0.5rem;
+  }
+
+  .appTitle {
+    font-size: 1.5rem;
+  }
+
+  .tabNavigation {
+    gap: 0.35rem;
+  }
+
+  .tabButton {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .simulatorFrame {
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+}

@@ -1,115 +1,135 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DeveloperCard } from './components/DeveloperCard';
+import styles from './App.module.css';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState('synthesized');
+  const [activeTab, setActiveTab] = useState('lecturer');
+  const [useMintTheme, setUseMintTheme] = useState(false);
 
   const profiles = {
-    synthesized: {
-      name: 'Elon "Technoking" Musk',
-      role: 'Chief Systems Architect & Pro Gamer',
-      handle: '@elonmusk',
-      avatarUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=256&h=256&q=80',
-      bio: 'Architecting orbital launch vehicles and multi-planetary compute infrastructure. Top-tier speedrunner, min-maxing latency from silicon to orbit.',
-      stats: [
-        { label: 'Guild / Organization', value: 'SpaceX // xAI // Tesla' },
-        { label: 'Competitive Tier', value: 'Grandmaster (Top 0.1%)' },
-        { label: 'Primary Weapon Stack', value: 'React 19 / Rust / C++' },
-        { label: 'Latency / APM Spec', value: '12ms Starlink // 380 APM' },
-        { label: 'Deployment Status', value: 'Active on Mainnet' },
-      ],
+    lecturer: {
+      fullName: 'Tran Vinh Khiem',
+      role: 'Senior Systems Architect • UIT S3T',
+      avatarUrl: '', // Uses Fallback Monogram [TVK]
+      metrics: {
+        commits: 512,
+        vdomNodes: 0,
+        a11yScore: 100,
+        researchLab: 'S3T Security & Systems',
+        apmRanking: '380 APM // Top 1%',
+      },
       skills: [
-        { name: 'React 19', level: 'Expert', category: 'tech' },
-        { name: 'Rust', level: 'Advanced', category: 'systems' },
-        { name: 'TypeScript', level: 'Master', category: 'tech' },
-        { name: 'Distributed Systems', level: 'Architect', category: 'systems' },
-        { name: 'Micro-APM', level: 'Grandmaster', category: 'gaming' },
-        { name: 'Aim Tracking', level: 'Predator', category: 'gaming' },
-        { name: 'Starship Avionics', level: 'Technoking', category: 'specialty' },
+        { id: 'sk-1', name: 'React 19 Fiber', tier: 'Core', category: 'systems' },
+        { id: 'sk-2', name: 'Semantic HTML5', tier: 'Core', category: 'specialty' },
+        { id: 'sk-3', name: 'Virtual DOM Engine', tier: 'Advanced', category: 'tech' },
+        { id: 'sk-4', name: 'Distributed Systems', tier: 'Master', category: 'systems' },
+        { id: 'sk-5', name: 'Zero Div-Soup Mandate', tier: 'Enforcer', category: 'specialty' },
       ],
-      isAvailable: true,
     },
     student: {
-      name: 'Trần Hữu Thắng',
+      fullName: 'Trần Hữu Thắng',
       role: 'Full-Stack Systems Engineer & Esports Tactician',
-      handle: '@thangtran224',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&h=256&q=80',
-      bio: 'UIT Software Engineering student crafting high-performance, deterministic web systems with zero div-soup and mathematically verified state machines.',
-      stats: [
-        { label: 'University / Guild', value: 'UIT - VNUHCM (MSSV: 24521614)' },
-        { label: 'Esports Specialty', value: 'Tactical FPS & High-APM RTS' },
-        { label: 'Core Competency', value: 'React 19, VNode Engine, Node' },
-        { label: 'Verification Standard', value: '100% Invariant Compliance' },
-        { label: 'Availability', value: 'Open for High-Impact Projects' },
-      ],
+      avatarUrl: '', // Uses Fallback Monogram [THT]
+      metrics: {
+        studentId: '24521614',
+        faculty: 'Software Engineering (UIT)',
+        vnodeEngine: '100% Invariant Compliant',
+        esportsRank: 'Grandmaster / Top 500',
+      },
       skills: [
-        { name: 'React 19', level: 'Specialist', category: 'tech' },
-        { name: 'JavaScript ESNext', level: 'Master', category: 'tech' },
-        { name: 'Node.js', level: 'Advanced', category: 'systems' },
-        { name: 'Semantic HTML5', level: 'Purist', category: 'specialty' },
-        { name: 'Clutch Decision-Making', level: 'Diamond', category: 'gaming' },
-        { name: 'Zero Div-Soup Architecture', level: 'Enforcer', category: 'specialty' },
+        { id: 'st-1', name: 'React 19', tier: 'Specialist', category: 'tech' },
+        { id: 'st-2', name: 'JavaScript ESNext', tier: 'Master', category: 'tech' },
+        { id: 'st-3', name: 'Node.js', tier: 'Advanced', category: 'systems' },
+        { id: 'st-4', name: 'Semantic Layout', tier: 'Purist', category: 'specialty' },
+        { id: 'st-5', name: 'Micro-APM', tier: 'Diamond', category: 'gaming' },
       ],
-      isAvailable: true,
     },
-    fallbackTest: {
-      name: 'Phantom Developer',
-      role: 'Stealth Security Researcher',
-      handle: '@phantom_dev',
-      avatarUrl: 'https://invalid-non-existent-domain.internal/broken-image.png',
-      bio: 'Testing resilient image fallback handling under network failure. When the avatar fails to load, fallback initials render without layout shift.',
-      stats: [
-        { label: 'Operation Mode', value: 'Air-Gapped Sandbox' },
-        { label: 'Security Clearance', value: 'Level 5 (Classified)' },
-        { label: 'CLS Invariant', value: 'Cumulative Shift = 0.00' },
-        { label: 'Fallback State', value: 'Deterministic Initials [PD]' },
-      ],
+    photoDemo: {
+      fullName: 'Senior Systems Architect',
+      role: 'Testing Media Image Rendering & Zero CLS',
+      avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=240',
+      metrics: {
+        mediaProtocol: 'HTTPS Only (Zero Insecure)',
+        layoutShift: 'CLS = 0.00 (64x64 Box)',
+        renderingMode: 'Native <img> with Lazy Load',
+      },
       skills: [
-        { name: 'Penetration Testing', level: 'Lead', category: 'systems' },
-        { name: 'Zero-Day Auditing', level: 'Expert', category: 'systems' },
-        { name: 'Network Sandbox', level: 'Architect', category: 'specialty' },
+        { id: 'ph-1', name: 'HTTPS Security', tier: 'Enforced', category: 'specialty' },
+        { id: 'ph-2', name: 'Zero CLS Contract', tier: 'Strict', category: 'systems' },
       ],
-      isAvailable: false,
     },
   };
 
   const currentProfile = profiles[activeTab];
 
   return (
-    <main className="app-container">
-      <header className="app-header">
-        <h1>Lab 03 - Exercise 1</h1>
-        <p className="app-subtitle">
-          Semantic Engineer & Pro-Gamer Profile Card (Zero Div-Soup Mandate)
+    <main className={styles.appContainer}>
+      <header className={styles.appHeader}>
+        <h1 className={styles.appTitle}>Lab 03 - Exercise 1</h1>
+        <p className={styles.appSubtitle}>
+          Semantic Engineer &amp; Pro-Gamer Profile Card (Zero Div-Soup Mandate)
         </p>
       </header>
 
-      <nav className="tab-navigation" aria-label="Profile Card Demonstrations">
+      <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
         <button
           type="button"
-          onClick={() => setActiveTab('synthesized')}
-          className={`tab-button ${activeTab === 'synthesized' ? 'is-active' : ''}`}
+          onClick={() => setActiveTab('lecturer')}
+          className={`${styles.tabButton} ${
+            activeTab === 'lecturer' ? styles.tabButtonActive : ''
+          }`}
         >
-          Synthesized Card (Elon Musk Ex 4.4 + Ex 4.5)
+          Giảng viên Trần Vĩnh Khiêm [TVK]
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('student')}
-          className={`tab-button ${activeTab === 'student' ? 'is-active' : ''}`}
+          className={`${styles.tabButton} ${
+            activeTab === 'student' ? styles.tabButtonActive : ''
+          }`}
         >
-          Student Engineer Profile (Ex 4.1 Reusability)
+          Sinh viên Trần Hữu Thắng [THT]
         </button>
         <button
           type="button"
-          onClick={() => setActiveTab('fallbackTest')}
-          className={`tab-button ${activeTab === 'fallbackTest' ? 'is-active' : ''}`}
+          onClick={() => setActiveTab('photoDemo')}
+          className={`${styles.tabButton} ${
+            activeTab === 'photoDemo' ? styles.tabButtonActive : ''
+          }`}
         >
-          Avatar Fallback Resilience Test
+          Media Photo Test (Zero CLS)
         </button>
       </nav>
 
-      <section className="card-stage" aria-label="Card Showcase Stage">
-        <DeveloperCard {...currentProfile} />
+      <aside className={styles.themeToggleSection}>
+        <button
+          type="button"
+          onClick={() => setUseMintTheme(!useMintTheme)}
+          className={styles.themeToggleButton}
+        >
+          {useMintTheme
+            ? '✓ Slide 18 Mint Theme Active (#d0f0c0)'
+            : 'Toggle Slide 18 Mint Theme (#d0f0c0)'}
+        </button>
+      </aside>
+
+      <section className={styles.cardStage} aria-label="Card Showcase Stage">
+        <DeveloperCard
+          {...currentProfile}
+          theme={useMintTheme ? 'mint' : 'default'}
+        />
+      </section>
+
+      <section className={styles.simulatorContainer} aria-label="375px Viewport Simulator">
+        <p className={styles.simulatorLabel}>
+          iPhone SE Viewport Simulator (375px Width Boundary)
+        </p>
+        <section className={styles.simulatorFrame}>
+          <DeveloperCard
+            {...currentProfile}
+            theme={useMintTheme ? 'mint' : 'default'}
+          />
+        </section>
       </section>
     </main>
   );

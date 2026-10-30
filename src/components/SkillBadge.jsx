@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './SkillBadge.module.css';
 
 export function SkillBadge({
   name,
@@ -6,16 +7,21 @@ export function SkillBadge({
   category = 'tech',
   className = '',
 }) {
+  const categoryClass = styles[category] || styles.tech;
+
   return (
     <span
-      className={`skill-badge skill-badge--${category} ${className}`.trim()}
+      className={`${styles.badge} ${categoryClass} ${className}`.trim()}
       data-category={category}
       data-level={level}
     >
-      <span className="skill-badge__name">{name}</span>
+      <span className={styles.skillName}>{name}</span>
       {level && (
-        <span className="skill-badge__level" aria-label={`Proficiency: ${level}`}>
-          {level}
+        <span
+          className={styles.skillLevel}
+          aria-label={`Proficiency: ${level}`}
+        >
+          [{level}]
         </span>
       )}
     </span>
