@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { DeveloperCard } from './components/DeveloperCard';
+import { ScientistDirectory } from './components/ScientistDirectory';
 import styles from './App.module.css';
 
 export function App() {
+  const [activeExercise, setActiveExercise] = useState('ex2'); // Default to current Ex 2
   const [activeTab, setActiveTab] = useState('lecturer');
   const [useMintTheme, setUseMintTheme] = useState(false);
 
@@ -65,72 +67,91 @@ export function App() {
   return (
     <main className={styles.appContainer}>
       <header className={styles.appHeader}>
-        <h1 className={styles.appTitle}>Lab 03 - Exercise 1</h1>
+        <h1 className={styles.appTitle}>Lab 03: Modern React Architecture</h1>
         <p className={styles.appSubtitle}>
-          Semantic Engineer &amp; Pro-Gamer Profile Card (Zero Div-Soup Mandate)
+          Zero Div-Soup Profile Cards &amp; Pure Derived-State Explorers
         </p>
+
+        <nav className={styles.tabNavigation} aria-label="Exercise Selector" style={{ marginTop: '1rem' }}>
+          <button
+            type="button"
+            onClick={() => setActiveExercise('ex1')}
+            className={`${styles.tabButton} ${activeExercise === 'ex1' ? styles.tabButtonActive : ''}`}
+          >
+            Exercise 1: DeveloperCard (Checkpoint 1)
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveExercise('ex2')}
+            className={`${styles.tabButton} ${activeExercise === 'ex2' ? styles.tabButtonActive : ''}`}
+          >
+            Exercise 2: ScientistDirectory (Checkpoint 2)
+          </button>
+        </nav>
       </header>
 
-      <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
-        <button
-          type="button"
-          onClick={() => setActiveTab('lecturer')}
-          className={`${styles.tabButton} ${
-            activeTab === 'lecturer' ? styles.tabButtonActive : ''
-          }`}
-        >
-          Giảng viên Trần Vĩnh Khiêm [TVK]
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('student')}
-          className={`${styles.tabButton} ${
-            activeTab === 'student' ? styles.tabButtonActive : ''
-          }`}
-        >
-          Sinh viên Trần Hữu Thắng [THT]
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('photoDemo')}
-          className={`${styles.tabButton} ${
-            activeTab === 'photoDemo' ? styles.tabButtonActive : ''
-          }`}
-        >
-          Media Photo Test (Zero CLS)
-        </button>
-      </nav>
+      {activeExercise === 'ex1' ? (
+        <>
+          <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
+            <button
+              type="button"
+              onClick={() => setActiveTab('lecturer')}
+              className={`${styles.tabButton} ${activeTab === 'lecturer' ? styles.tabButtonActive : ''}`}
+            >
+              Giảng viên Trần Vĩnh Khiêm [TVK]
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('student')}
+              className={`${styles.tabButton} ${activeTab === 'student' ? styles.tabButtonActive : ''}`}
+            >
+              Sinh viên Trần Hữu Thắng [THT]
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('photoDemo')}
+              className={`${styles.tabButton} ${activeTab === 'photoDemo' ? styles.tabButtonActive : ''}`}
+            >
+              Media Photo Test (Zero CLS)
+            </button>
+          </nav>
 
-      <aside className={styles.themeToggleSection}>
-        <button
-          type="button"
-          onClick={() => setUseMintTheme(!useMintTheme)}
-          className={styles.themeToggleButton}
-        >
-          {useMintTheme
-            ? '✓ Slide 18 Mint Theme Active (#d0f0c0)'
-            : 'Toggle Slide 18 Mint Theme (#d0f0c0)'}
-        </button>
-      </aside>
+          <aside className={styles.themeToggleSection}>
+            <button
+              type="button"
+              onClick={() => setUseMintTheme(!useMintTheme)}
+              className={styles.themeToggleButton}
+            >
+              {useMintTheme
+                ? '✓ Slide 18 Mint Theme Active (#d0f0c0)'
+                : 'Toggle Slide 18 Mint Theme (#d0f0c0)'}
+            </button>
+          </aside>
 
-      <section className={styles.cardStage} aria-label="Card Showcase Stage">
-        <DeveloperCard
-          {...currentProfile}
-          theme={useMintTheme ? 'mint' : 'default'}
-        />
-      </section>
+          <section className={styles.cardStage} aria-label="Card Showcase Stage">
+            <DeveloperCard
+              {...currentProfile}
+              theme={useMintTheme ? 'mint' : 'default'}
+            />
+          </section>
 
-      <section className={styles.simulatorContainer} aria-label="375px Viewport Simulator">
-        <p className={styles.simulatorLabel}>
-          iPhone SE Viewport Simulator (375px Width Boundary)
-        </p>
-        <section className={styles.simulatorFrame}>
-          <DeveloperCard
-            {...currentProfile}
-            theme={useMintTheme ? 'mint' : 'default'}
-          />
+          <section className={styles.simulatorContainer} aria-label="375px Viewport Simulator">
+            <p className={styles.simulatorLabel}>
+              iPhone SE Viewport Simulator (375px Width Boundary)
+            </p>
+            <section className={styles.simulatorFrame}>
+              <DeveloperCard
+                {...currentProfile}
+                theme={useMintTheme ? 'mint' : 'default'}
+              />
+            </section>
+          </section>
+        </>
+      ) : (
+        <section style={{ width: '100%', maxWidth: '640px', boxSizing: 'border-box' }}>
+          <ScientistDirectory />
         </section>
-      </section>
+      )}
     </main>
   );
 }

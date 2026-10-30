@@ -15,8 +15,8 @@
 ## Exercise 2: Interactive Scientist & Pioneer Directory (Derived State Engine)
 - [x] Task 2.1: Normalize Slide 20's `smartPeople` schema with stable entity IDs (`sp-1` to `sp-6`)
 - [x] Task 2.2: Implement case-insensitive search, min-IQ filter (`valueAsNumber`), and immutable `.toSorted()` without `useEffect`
-- [ ] Task 2.3: Implement immutable delete (`prev.filter(p => p.id !== id)`), reset snapshot, and `<output role="status" aria-live="polite">`
-- [ ] Task 2.4: Atomic Git Commits:
+- [x] Task 2.3: Implement immutable delete (`prev.filter(p => p.id !== id)`), reset snapshot, and `<output role="status" aria-live="polite">`
+- [x] Task 2.4: Atomic Git Commits:
   - Commit 1: `feat(ex2): normalize smartPeople schema with stable IDs`
   - Commit 2: `feat(ex2): add search, IQ filter & toSorted`
   - Commit 3: `feat(ex2): add delete/reset & live status`

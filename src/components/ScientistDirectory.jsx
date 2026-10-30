@@ -1,5 +1,6 @@
 import { useId, useState } from 'react';
 import { SMART_PEOPLE } from '../data/smartPeople';
+import styles from './ScientistDirectory.module.css';
 
 export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const qId = useId();
@@ -11,7 +12,7 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const [minIq, setMinIq] = useState(160);
   const [sortBy, setSortBy] = useState('iq-desc');
 
-  // Compute derived state purely in render body (ZERO useEffect)
+  // Compute derived data in 1 pure pass during render (Derived State Contract)
   const visible = people
     .filter(
       (p) =>
@@ -33,57 +34,132 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
       }
     });
 
+  // Immutable deletion preserving remaining item keys and DOM focus
+  const handleDelete = (id) => {
+    setPeople((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  // State snapshot restoration cleanly resetting to SMART_PEOPLE
+  const handleReset = () => {
+    setPeople(initialData);
+    setQuery('');
+    setMinIq(160);
+    setSortBy('iq-desc');
+  };
+
   return (
-    <section aria-label="Pioneer Directory">
-      <header>
-        <h2>Interactive Scientist &amp; Pioneer Directory</h2>
-        <p>Pure derived state pipeline with zero cascading re-renders</p>
+    <section className={styles.directorySection} aria-label="Pioneer Directory">
+      <header className={styles.header}>
+        <h2 className={styles.title}>Interactive Scientist &amp; Pioneer Directory</h2>
+        <p className={styles.subtitle}>
+          Derived state data explorer (.filter + .toSorted) with zero cascading renders
+        </p>
       </header>
 
-      <form role="search" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor={qId}>Search Name</label>
-        <input
-          id={qId}
-          type="search"
-          placeholder="Filter by name..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+      <form
+        role="search"
+        className={styles.searchForm}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <section className={styles.fieldGroup}>
+          <label htmlFor={qId} className={styles.label}>
+            Search Name
+          </label>
+          <input
+            id={qId}
+            type="search"
+            placeholder="Search by pioneer name..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className={styles.input}
+          />
+        </section>
 
-        <label htmlFor={iqId}>Min IQ</label>
-        <input
-          id={iqId}
-          type="number"
-          min="0"
-          max="300"
-          value={minIq}
-          onChange={(e) =>
-            setMinIq(
-              Number.isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber
-            )
-          }
-        />
+        <section className={styles.fieldGroup}>
+          <label htmlFor={iqId} className={styles.label}>
+            Min IQ ({minIq})
+          </label>
+          <input
+            id={iqId}
+            type="number"
+            min="0"
+            max="300"
+            value={minIq}
+            onChange={(e) =>
+              setMinIq(
+                Number.isNaN(e.target.valueAsNumber) ? 0 : e.target.valueAsNumber
+              )
+            }
+            className={styles.input}
+          />
+        </section>
 
-        <label htmlFor={sortId}>Sort By</label>
-        <select
-          id={sortId}
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="iq-desc">IQ (Highest First)</option>
-          <option value="iq-asc">IQ (Lowest First)</option>
-          <option value="age-desc">Age (Oldest First)</option>
-          <option value="age-asc">Age (Youngest First)</option>
-        </select>
+        <section className={styles.fieldGroup}>
+          <label htmlFor={sortId} className={styles.label}>
+            Sort By
+          </label>
+          <select
+            id={sortId}
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className={styles.select}
+          >
+            <option value="iq-desc">IQ (Highest First)</option>
+            <option value="iq-asc">IQ (Lowest First)</option>
+            <option value="age-desc">Age (Oldest First)</option>
+            <option value="age-asc">Age (Youngest First)</option>
+          </select>
+        </section>
       </form>
 
-      <ul>
-        {visible.map((p) => (
-          <li key={p.id}>
-            <span>{p.name}</span> — <span>Age: {p.age}</span> — <span>IQ: {p.iq}</span>
-          </li>
-        ))}
-      </ul>
+      <section className={styles.toolbar} aria-label="Directory Status and Actions">
+        <output
+          role="status"
+          aria-live="polite"
+          className={styles.liveCounter}
+        >
+          Found {visible.length} of {people.length} pioneers
+        </output>
+
+        <button
+          type="button"
+          onClick={handleReset}
+          className={styles.resetButton}
+          title="Restore original SMART_PEOPLE dataset"
+        >
+          Reset Directory Snapshot
+        </button>
+      </section>
+
+      {visible.length === 0 ? (
+        <p className={styles.emptyState}>
+          No pioneers match &quot;{query}&quot; with IQ &ge; {minIq}. Click Reset to restore.
+        </p>
+      ) : (
+        <ul className={styles.peopleList} aria-label="Matched Pioneers">
+          {visible.map((p) => (
+            <li key={p.id} className={styles.personItem}>
+              <section className={styles.personInfo}>
+                <span className={styles.personName}>{p.name}</span>
+                <span className={styles.personMeta}>
+                  <span>Age: {p.age}</span>
+                  <span>•</span>
+                  <span className={styles.iqBadge}>IQ: {p.iq}</span>
+                </span>
+              </section>
+
+              <button
+                type="button"
+                onClick={() => handleDelete(p.id)}
+                className={styles.deleteButton}
+                aria-label={`Delete ${p.name}`}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
