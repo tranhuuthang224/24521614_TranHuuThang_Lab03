@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { DeveloperCard } from './components/DeveloperCard';
 import { ScientistDirectory } from './components/ScientistDirectory';
+import { PubgMatchTelemetry } from './components/PubgMatchTelemetry';
 import styles from './App.module.css';
 
 export function App() {
-  const [activeExercise, setActiveExercise] = useState('ex2'); // Default to current Ex 2
+  const [activeExercise, setActiveExercise] = useState('ex3'); // Default to Exercise 3
   const [activeTab, setActiveTab] = useState('lecturer');
   const [useMintTheme, setUseMintTheme] = useState(false);
 
@@ -69,7 +70,7 @@ export function App() {
       <header className={styles.appHeader}>
         <h1 className={styles.appTitle}>Lab 03: Modern React Architecture</h1>
         <p className={styles.appSubtitle}>
-          Zero Div-Soup Profile Cards &amp; Pure Derived-State Explorers
+          KRAFTON Telemetry State Machine • Zero Div-Soup • Pure Derived State
         </p>
 
         <nav className={styles.tabNavigation} aria-label="Exercise Selector" style={{ marginTop: '1rem' }}>
@@ -87,10 +88,17 @@ export function App() {
           >
             Exercise 2: ScientistDirectory (Checkpoint 2)
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveExercise('ex3')}
+            className={`${styles.tabButton} ${activeExercise === 'ex3' ? styles.tabButtonActive : ''}`}
+          >
+            Exercise 3: PUBG VN Telemetry (Checkpoint 3)
+          </button>
         </nav>
       </header>
 
-      {activeExercise === 'ex1' ? (
+      {activeExercise === 'ex1' && (
         <>
           <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
             <button
@@ -147,9 +155,17 @@ export function App() {
             </section>
           </section>
         </>
-      ) : (
+      )}
+
+      {activeExercise === 'ex2' && (
         <section style={{ width: '100%', maxWidth: '640px', boxSizing: 'border-box' }}>
           <ScientistDirectory />
+        </section>
+      )}
+
+      {activeExercise === 'ex3' && (
+        <section style={{ width: '100%', maxWidth: '560px', boxSizing: 'border-box' }}>
+          <PubgMatchTelemetry />
         </section>
       )}
     </main>

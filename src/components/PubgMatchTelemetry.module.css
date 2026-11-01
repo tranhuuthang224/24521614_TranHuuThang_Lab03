@@ -1,0 +1,347 @@
+/**
+ * PubgMatchTelemetry.module.css
+ * KRAFTON PUBG VN Blue-Zone Satellite Telemetry Widget.
+ * Guarantees 0.00 Cumulative Layout Shift (CLS) via 220px dimension-matched states.
+ */
+
+:root {
+  --color-bluezone: #38bdf8;
+  --color-bluezone-glow: rgba(56, 189, 248, 0.35);
+  --color-wwcd-gold: #f59e0b;
+  --color-wwcd-glow: rgba(245, 158, 11, 0.4);
+}
+
+.widgetContainer {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #f8fafc;
+}
+
+.squadNav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.squadButton {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.squadButton:hover {
+  background: rgba(30, 41, 59, 0.9);
+  color: #f8fafc;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.squadButtonActive {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+/* ==========================================================================
+   Dimension-Matched 220px Card Containers (Zero CLS Guarantee)
+   ========================================================================== */
+.telemetryCard,
+.skeletonCard,
+.errorCard {
+  width: 100%;
+  min-height: 220px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+/* Success State */
+.telemetryCard {
+  background: linear-gradient(150deg, rgba(56, 189, 248, 0.12) 0%, #111a2e 40%, #0c1220 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.squadTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tagBadge {
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: ui-monospace, monospace;
+}
+
+.mapBadge {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.phasePill {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.telemetryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.statBox {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.2rem;
+}
+
+.statValue {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #f8fafc;
+  font-family: ui-monospace, monospace;
+}
+
+.statValueGold {
+  color: var(--color-wwcd-gold);
+  text-shadow: 0 0 8px var(--color-wwcd-glow);
+}
+
+.statValueCyan {
+  color: var(--color-bluezone);
+  text-shadow: 0 0 8px var(--color-bluezone-glow);
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #64748b;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.statusText {
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Blue-Zone Shimmer Skeleton (Zero CLS, 220px min-height)
+   ========================================================================== */
+.skeletonCard {
+  background: #0f172a;
+  border: 1px dashed rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeletonPulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.12) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeletonHeader {
+  height: 28px;
+  width: 55%;
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.skeletonBox {
+  height: 60px;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 10px;
+}
+
+.skeletonFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #38bdf8;
+  font-family: ui-monospace, monospace;
+}
+
+.radarPulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Error Alert State (role="alert", 220px min-height)
+   ========================================================================== */
+.errorCard {
+  background: linear-gradient(150deg, rgba(239, 68, 68, 0.12) 0%, #1e131b 40%, #150d14 100%);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 20px rgba(239, 68, 68, 0.15);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.errorTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f87171;
+  margin: 0;
+}
+
+.errorMessage {
+  font-size: 0.825rem;
+  color: #fca5a5;
+  margin: 0;
+  max-width: 90%;
+  line-height: 1.4;
+}
+
+.retryButton {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid #ef4444;
+  color: #fecaca;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.825rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+  background: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   375px Responsive Contract (iPhone SE Zero Horizontal Scroll)
+   ========================================================================== */
+@media (max-width: 375px) {
+  .widgetContainer {
+    padding: 0;
+  }
+
+  .telemetryCard,
+  .skeletonCard,
+  .errorCard {
+    padding: 1rem;
+    min-height: 220px;
+  }
+
+  .squadTitle {
+    font-size: 1.1rem;
+  }
+
+  .telemetryGrid,
+  .skeletonGrid {
+    gap: 0.45rem;
+  }
+
+  .statBox {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .statValue {
+    font-size: 0.95rem;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+  }
+
+  .cardFooter {
+    font-size: 0.7rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+}

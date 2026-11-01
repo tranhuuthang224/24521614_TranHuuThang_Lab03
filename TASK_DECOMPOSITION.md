@@ -24,11 +24,11 @@
 ## Exercise 3: KRAFTON PUBG VN Live Telemetry Widget (Abortable 4-State Machine)
 - [x] Task 3.1: Data Schema & Asynchronous Satellite Telemetry Service (`src/data/pubgSquads.js` & `src/services/pubgTelemetry.js`) with AbortSignal support
 - [x] Task 3.2: Implement 4-state machine (`IDLE` | `LOADING` | `SUCCESS` | `ERROR`) in `<PubgMatchTelemetry />` with `AbortController` cleanup and `AbortError` guard
-- [ ] Task 3.3: Implement dimension-matched 220px Skeleton loader (`aria-busy="true"`) for 0.00 CLS
-- [ ] Task 3.4: Implement accessible error state (`<section role="alert">`) with retry recovery (`retryTick`) and zero `window.alert()`
-- [ ] Task 3.5: CSS Modules & 375px responsive contract (`PubgMatchTelemetry.module.css`) with Blue-Zone radar visual design
-- [ ] Task 3.6: Integrate Exercise 3 into `App.jsx` with squad selector tabs (`ces`, `te`, `ge`) and rapid-switching cancellation test
-- [ ] Task 3.7: 2 Atomic Git Commits:
+- [x] Task 3.3: Implement dimension-matched 220px Skeleton loader (`aria-busy="true"`) for 0.00 CLS
+- [x] Task 3.4: Implement accessible error state (`<section role="alert">`) with retry recovery (`retryTick`) and zero `window.alert()`
+- [x] Task 3.5: CSS Modules & 375px responsive contract (`PubgMatchTelemetry.module.css`) with Blue-Zone radar visual design
+- [x] Task 3.6: Integrate Exercise 3 into `App.jsx` with squad selector tabs (`ces`, `te`, `ge`) and rapid-switching cancellation test
+- [x] Task 3.7: 2 Atomic Git Commits:
   - Commit 1: `feat(ex3): implement PUBG VN 4-state telemetry & AbortController`
   - Commit 2: `feat(ex3): add skeleton UI & retry alert`
 
