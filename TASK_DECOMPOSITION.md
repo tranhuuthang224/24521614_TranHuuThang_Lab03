@@ -21,11 +21,25 @@
   - Commit 2: `feat(ex2): add search, IQ filter & toSorted`
   - Commit 3: `feat(ex2): add delete/reset & live status`
 
+## Exercise 3: KRAFTON PUBG VN Live Telemetry Widget (Abortable 4-State Machine)
+- [x] Task 3.1: Data Schema & Asynchronous Satellite Telemetry Service (`src/data/pubgSquads.js` & `src/services/pubgTelemetry.js`) with AbortSignal support
+- [x] Task 3.2: Implement 4-state machine (`IDLE` | `LOADING` | `SUCCESS` | `ERROR`) in `<PubgMatchTelemetry />` with `AbortController` cleanup and `AbortError` guard
+- [ ] Task 3.3: Implement dimension-matched 220px Skeleton loader (`aria-busy="true"`) for 0.00 CLS
+- [ ] Task 3.4: Implement accessible error state (`<section role="alert">`) with retry recovery (`retryTick`) and zero `window.alert()`
+- [ ] Task 3.5: CSS Modules & 375px responsive contract (`PubgMatchTelemetry.module.css`) with Blue-Zone radar visual design
+- [ ] Task 3.6: Integrate Exercise 3 into `App.jsx` with squad selector tabs (`ces`, `te`, `ge`) and rapid-switching cancellation test
+- [ ] Task 3.7: 2 Atomic Git Commits:
+  - Commit 1: `feat(ex3): implement PUBG VN 4-state telemetry & AbortController`
+  - Commit 2: `feat(ex3): add skeleton UI & retry alert`
+
 ## Invariants Verified:
 1. **Zero Div-Soup (Ex 1)**: Exactly 0 `<div>` elements inside `DeveloperCard.jsx` and `SkillBadge.jsx`.
 2. **HTTPS Only (Ex 1)**: 0 insecure `http://` origins in component media.
 3. **Zero CLS (Ex 1)**: Explicit width and height attributes preventing Cumulative Layout Shift.
-4. **Zero useEffect (Ex 2)**: Exactly 0 `useEffect` hooks for filtering/sorting; 100% pure derived state.
+4. **Zero useEffect for Filtering (Ex 2)**: Exactly 0 `useEffect` hooks for filtering/sorting; 100% pure derived state.
 5. **Form A11y & Number Safety (Ex 2)**: All controls bound via `useId()` and `<label htmlFor>`; numeric parsing via `e.target.valueAsNumber`.
 6. **Immutable Operations (Ex 2)**: Sorting via ES2023 `.toSorted()` and deletions via pure array filtering.
-7. **Single Render Pass**: Keystrokes trigger exactly 1 render cycle with zero cascading re-renders.
+7. **Single Render Pass (Ex 2)**: Keystrokes trigger exactly 1 render cycle with zero cascading re-renders.
+8. **Deterministic Abort Cleanup (Ex 3)**: Unmounting or changing squads immediately aborts pending in-flight telemetry requests.
+9. **Safe Abort Handling (Ex 3)**: Abort errors never flash false error banners.
+10. **Zero Alert Mandate (Ex 3)**: 0 `window.alert()` calls; all network failures surface via accessible `<section role="alert">`.
