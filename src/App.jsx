@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { DeveloperCard } from './components/DeveloperCard';
+import { DrumMachine } from './homeworks/DrumMachine/DrumMachine';
 import styles from './App.module.css';
 
 export function App() {
+  const [activeModule, setActiveModule] = useState('drum'); // 'drum' | 'profile'
   const [activeTab, setActiveTab] = useState('lecturer');
   const [useMintTheme, setUseMintTheme] = useState(false);
 
@@ -65,72 +67,106 @@ export function App() {
   return (
     <main className={styles.appContainer}>
       <header className={styles.appHeader}>
-        <h1 className={styles.appTitle}>Lab 03 - Exercise 1</h1>
+        <h1 className={styles.appTitle}>Lab 03 - Production React 19</h1>
         <p className={styles.appSubtitle}>
-          Semantic Engineer &amp; Pro-Gamer Profile Card (Zero Div-Soup Mandate)
+          Student: Trần Hữu Thắng (24521614) • Branch: <code>HW1</code>
         </p>
       </header>
 
-      <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
+      {/* Module Switcher: HW1 Studio Drum Kit vs Ex1 Profile Card */}
+      <nav className={styles.tabNavigation} aria-label="Branch Module Navigation">
         <button
           type="button"
-          onClick={() => setActiveTab('lecturer')}
+          onClick={() => setActiveModule('drum')}
           className={`${styles.tabButton} ${
-            activeTab === 'lecturer' ? styles.tabButtonActive : ''
+            activeModule === 'drum' ? styles.tabButtonActive : ''
           }`}
         >
-          Giảng viên Trần Vĩnh Khiêm [TVK]
+          🥁 Homework 1: Studio Drum Kit (Slide 26 & 34)
         </button>
         <button
           type="button"
-          onClick={() => setActiveTab('student')}
+          onClick={() => setActiveModule('profile')}
           className={`${styles.tabButton} ${
-            activeTab === 'student' ? styles.tabButtonActive : ''
+            activeModule === 'profile' ? styles.tabButtonActive : ''
           }`}
         >
-          Sinh viên Trần Hữu Thắng [THT]
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('photoDemo')}
-          className={`${styles.tabButton} ${
-            activeTab === 'photoDemo' ? styles.tabButtonActive : ''
-          }`}
-        >
-          Media Photo Test (Zero CLS)
+          👤 Exercise 1: Semantic Profile Card
         </button>
       </nav>
 
-      <aside className={styles.themeToggleSection}>
-        <button
-          type="button"
-          onClick={() => setUseMintTheme(!useMintTheme)}
-          className={styles.themeToggleButton}
-        >
-          {useMintTheme
-            ? '✓ Slide 18 Mint Theme Active (#d0f0c0)'
-            : 'Toggle Slide 18 Mint Theme (#d0f0c0)'}
-        </button>
-      </aside>
-
-      <section className={styles.cardStage} aria-label="Card Showcase Stage">
-        <DeveloperCard
-          {...currentProfile}
-          theme={useMintTheme ? 'mint' : 'default'}
-        />
-      </section>
-
-      <section className={styles.simulatorContainer} aria-label="375px Viewport Simulator">
-        <p className={styles.simulatorLabel}>
-          iPhone SE Viewport Simulator (375px Width Boundary)
-        </p>
-        <section className={styles.simulatorFrame}>
-          <DeveloperCard
-            {...currentProfile}
-            theme={useMintTheme ? 'mint' : 'default'}
-          />
+      {/* HW1 Drum Machine Module */}
+      {activeModule === 'drum' && (
+        <section style={{ width: '100%', maxWidth: '860px' }} aria-label="Homework 1 Module">
+          <DrumMachine />
         </section>
-      </section>
+      )}
+
+      {/* Exercise 1 Profile Card Module */}
+      {activeModule === 'profile' && (
+        <>
+          <nav className={styles.tabNavigation} aria-label="Profile Card Demonstrations">
+            <button
+              type="button"
+              onClick={() => setActiveTab('lecturer')}
+              className={`${styles.tabButton} ${
+                activeTab === 'lecturer' ? styles.tabButtonActive : ''
+              }`}
+            >
+              Giảng viên Trần Vĩnh Khiêm [TVK]
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('student')}
+              className={`${styles.tabButton} ${
+                activeTab === 'student' ? styles.tabButtonActive : ''
+              }`}
+            >
+              Sinh viên Trần Hữu Thắng [THT]
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('photoDemo')}
+              className={`${styles.tabButton} ${
+                activeTab === 'photoDemo' ? styles.tabButtonActive : ''
+              }`}
+            >
+              Media Photo Test (Zero CLS)
+            </button>
+          </nav>
+
+          <aside className={styles.themeToggleSection}>
+            <button
+              type="button"
+              onClick={() => setUseMintTheme(!useMintTheme)}
+              className={styles.themeToggleButton}
+            >
+              {useMintTheme
+                ? '✓ Slide 18 Mint Theme Active (#d0f0c0)'
+                : 'Toggle Slide 18 Mint Theme (#d0f0c0)'}
+            </button>
+          </aside>
+
+          <section className={styles.cardStage} aria-label="Card Showcase Stage">
+            <DeveloperCard
+              {...currentProfile}
+              theme={useMintTheme ? 'mint' : 'default'}
+            />
+          </section>
+
+          <section className={styles.simulatorContainer} aria-label="375px Viewport Simulator">
+            <p className={styles.simulatorLabel}>
+              iPhone SE Viewport Simulator (375px Width Boundary)
+            </p>
+            <section className={styles.simulatorFrame}>
+              <DeveloperCard
+                {...currentProfile}
+                theme={useMintTheme ? 'mint' : 'default'}
+              />
+            </section>
+          </section>
+        </>
+      )}
     </main>
   );
 }
