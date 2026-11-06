@@ -1,0 +1,525 @@
+/* KraftonPubgVnArena.module.css - KRAFTON x PUBG VN Championship Theme */
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #0d1117 0%, #080a0f 100%);
+  border: 1px solid #21262d;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: #e6edf3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 1rem;
+}
+
+.titleArea {
+  max-width: 620px;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.badgePvs {
+  background: #238636;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badgeServer {
+  background: #161b22;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.title {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 60%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #8b949e;
+  line-height: 1.5;
+}
+
+/* Master Airdrop Timer Card */
+.airdropCard {
+  background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+  border: 2px solid #d29922;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 0 24px rgba(210, 153, 34, 0.15);
+}
+
+.airdropInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.airdropTag {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #f59e0b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.airdropName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f0f6fc;
+}
+
+.airdropClock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.clockDisplay {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #58a6ff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 16px rgba(88, 166, 255, 0.4);
+}
+
+.clockStatus {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.statusLive {
+  background: #238636;
+  color: #ffffff;
+  animation: pulseLive 1.2s infinite alternate;
+}
+
+@keyframes pulseLive {
+  from { opacity: 0.8; }
+  to { opacity: 1; box-shadow: 0 0 10px #238636; }
+}
+
+.statusWarmup {
+  background: #388bfd1a;
+  color: #58a6ff;
+  border: 1px solid #388bfd40;
+}
+
+/* Conflict Sim Control Strip */
+.simBar {
+  background: #161b22;
+  border: 1px dashed #30363d;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.simLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #c9d1d9;
+  cursor: pointer;
+}
+
+.simBadge {
+  font-size: 0.7rem;
+  background: #f8514926;
+  color: #f85149;
+  border: 1px solid #f8514966;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Drops Section */
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #f0f6fc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dropCard {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.dropCard:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+}
+
+.dropHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.rarityBadge {
+  font-size: 0.675rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.rarityMythic {
+  background: #f8514926;
+  color: #f85149;
+  border: 1px solid #f85149;
+}
+
+.rarityLegendary {
+  background: #d2992226;
+  color: #e3b341;
+  border: 1px solid #d29922;
+}
+
+.rarityRare {
+  background: #388bfd26;
+  color: #58a6ff;
+  border: 1px solid #388bfd;
+}
+
+.dropTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f0f6fc;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+}
+
+.dropPrice {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #f59e0b;
+  margin-bottom: 0.5rem;
+}
+
+.stockRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #8b949e;
+  margin-bottom: 0.85rem;
+}
+
+.stockCount {
+  font-weight: 700;
+  color: #58a6ff;
+}
+
+.claimButton {
+  width: 100%;
+  padding: 0.65rem;
+  background: #238636;
+  border: 1px solid #2ea043;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.claimButton:hover:not(:disabled) {
+  background: #2ea043;
+}
+
+.claimButton:disabled {
+  background: #21262d;
+  border-color: #30363d;
+  color: #6e7681;
+  cursor: not-allowed;
+}
+
+.claimButtonBusy {
+  background: #d29922 !important;
+  border-color: #e3b341 !important;
+  color: #0d1117 !important;
+}
+
+/* Alert Feedback Banner */
+.alertBanner {
+  background: #1f1415;
+  border: 1px solid #f85149;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alertText {
+  color: #ff7b72;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dismissAlertBtn {
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  cursor: pointer;
+  font-size: 0.75rem;
+  text-decoration: underline;
+}
+
+/* Leaderboard Section */
+.leaderboardSection {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboardFilters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.searchInput {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  color: #f0f6fc;
+  font-size: 0.8125rem;
+  min-width: 220px;
+}
+
+.searchInput:focus {
+  border-color: #58a6ff;
+  outline: none;
+}
+
+.sortTabs {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.sortTabBtn {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sortTabBtn:hover {
+  color: #f0f6fc;
+}
+
+.sortTabActive {
+  background: #1f6feb;
+  border-color: #388bfd;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.leaderboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.leaderboardTable th {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  background: #0d1117;
+  border-bottom: 1px solid #30363d;
+  color: #8b949e;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.leaderboardTable td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid #21262d;
+  color: #c9d1d9;
+}
+
+.leaderboardTable tr:hover td {
+  background: #1c2128;
+}
+
+.rankBadge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 800;
+  color: #f59e0b;
+}
+
+.squadName {
+  font-weight: 700;
+  color: #f0f6fc;
+}
+
+.pointsBold {
+  font-weight: 800;
+  color: #58a6ff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Live Claim Log Status */
+.claimLogSection {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.claimLogHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8b949e;
+}
+
+.claimOutput {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.35rem;
+  max-height: 120px;
+  overflow-y: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+.claimLogItem {
+  display: flex;
+  justify-content: space-between;
+  background: #161b22;
+  border: 1px solid #30363d;
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+}
+
+/* Mobile Responsive Contract (375px) */
+@media (max-width: 375px) {
+  .container {
+    padding: 0.75rem;
+    border-radius: 0;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .airdropCard {
+    padding: 0.85rem;
+  }
+
+  .clockDisplay {
+    font-size: 1.75rem;
+  }
+
+  .dropsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .leaderboardFilters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchInput {
+    min-width: 100%;
+  }
+}
