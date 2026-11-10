@@ -5,6 +5,26 @@ import { PianoKey } from './PianoKey';
 import styles from './GrandPiano88.module.css';
 
 /**
+ * Computer keyboard bindings for the Middle Octave (C4 - C5)
+ * Allows testing polyphony and chords on laptop/desktop without touch screen
+ */
+const KEYBOARD_MAP = {
+  KeyA: 60, // C4
+  KeyW: 61, // C#4
+  KeyS: 62, // D4
+  KeyE: 63, // D#4
+  KeyD: 64, // E4
+  KeyF: 65, // F4
+  KeyT: 66, // F#4
+  KeyG: 67, // G4
+  KeyY: 68, // G#4
+  KeyH: 69, // A4 (440Hz reference)
+  KeyU: 70, // A#4
+  KeyJ: 71, // B4
+  KeyK: 72, // C5
+};
+
+/**
  * GrandPiano88 Component (Homework 2 - Slide 27 & 28)
  * 88-Key Polyphonic Piano & Concurrent FIFO Sequencer
  * Features:
@@ -13,6 +33,7 @@ import styles from './GrandPiano88.module.css';
  * - Click-free ADSR exponential release ramp
  * - React.memo render isolation per key
  * - FIFO recorder & replay with AbortController cancellation and 0.5x/1.0x/2.0x speed
+ * - Octave filtering with adaptive black-key CSS variable alignment
  */
 export function GrandPiano88() {
   const synthRef = useRef(null);
@@ -29,6 +50,7 @@ export function GrandPiano88() {
   const [recordedNotes, setRecordedNotes] = useState([]);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
   const recordStartTimeRef = useRef(0);
+  const lastNoteTimeRef = useRef(0);
 
   // Initialize synth singleton on mount
   useEffect(() => {
@@ -60,26 +82,23 @@ export function GrandPiano88() {
     const key = PIANO_KEYS.find((k) => k.midi === midi);
     if (!key) return;
 
-    // Trigger audio oscillator in voice pool
-    synthRef.current.noteOn(midi, key.frequencyHz);
-
-    // Update active voices set
-    setActiveMidis((prev) => {
-      const next = new Set(prev);
-      next.add(midi);
-      return next;
-    });
+    // Trigger audio oscillator in voice pool & sync active voices (handles FIFO voice stealing)
+    const activeVoiceList = synthRef.current.noteOn(midi, key.frequencyHz);
+    setActiveMidis(new Set(activeVoiceList));
 
     // Record note if recording is active
     if (isRecording) {
-      const deltaMs = Date.now() - recordStartTimeRef.current;
+      const now = Date.now();
+      const deltaMs = lastNoteTimeRef.current ? now - lastNoteTimeRef.current : 0;
+      lastNoteTimeRef.current = now;
       setRecordedNotes((prev) => [
         ...prev,
         {
           midi,
           freqHz: key.frequencyHz,
           noteName: key.noteName,
-          startDeltaMs: deltaMs,
+          deltaMs: Math.max(50, Math.min(2000, deltaMs || 250)),
+          durationMs: 350,
         },
       ]);
     }
@@ -88,14 +107,37 @@ export function GrandPiano88() {
   // Note Off handler (Triggered by pointer up or leave)
   const handleNoteOff = useCallback((midi) => {
     if (!synthRef.current) return;
-    synthRef.current.noteOff(midi);
-
-    setActiveMidis((prev) => {
-      const next = new Set(prev);
-      next.delete(midi);
-      return next;
-    });
+    const activeVoiceList = synthRef.current.noteOff(midi);
+    setActiveMidis(new Set(activeVoiceList));
   }, []);
+
+  // Computer Keyboard Listener (A..K keys for C4..C5)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.repeat) return; // Anti-repeat guard
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return; // Input isolation
+      const midi = KEYBOARD_MAP[e.code];
+      if (midi) {
+        e.preventDefault();
+        handleNoteOn(midi);
+      }
+    };
+
+    const handleKeyUp = (e) => {
+      const midi = KEYBOARD_MAP[e.code];
+      if (midi) {
+        e.preventDefault();
+        handleNoteOff(midi);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [handleNoteOn, handleNoteOff]);
 
   // Toggle Recording
   const handleToggleRecord = () => {
@@ -104,6 +146,7 @@ export function GrandPiano88() {
     if (!isRecording) {
       setRecordedNotes([]);
       recordStartTimeRef.current = Date.now();
+      lastNoteTimeRef.current = 0;
       setIsRecording(true);
     } else {
       setIsRecording(false);
@@ -361,12 +404,11 @@ export function GrandPiano88() {
             ))}
           </div>
 
-          {/* Layer 2: Black Keys (Positioned absolutely over white keys) */}
+          {/* Layer 2: Black Keys (Positioned adaptively relative to visible white keys) */}
           {blackKeys.map((key) => {
-            // Calculate absolute horizontal offset based on predecessor white key
-            // White key width = 32px, Black key width = 20px
-            // Center black key on boundary: (whiteIndex + 1) * 32 - 10
-            const leftOffset = (key.previousWhiteIndex + 1) * 32 - 10;
+            // Calculate relative horizontal offset based on the first visible white key
+            const firstWhiteIndex = whiteKeys[0]?.whiteIndex ?? 0;
+            const relativeWhiteIndex = key.previousWhiteIndex - firstWhiteIndex;
             return (
               <PianoKey
                 key={key.midi}
@@ -376,7 +418,9 @@ export function GrandPiano88() {
                 isPressed={activeMidis.has(key.midi)}
                 onNoteOn={handleNoteOn}
                 onNoteOff={handleNoteOff}
-                style={{ left: `${leftOffset}px` }}
+                style={{
+                  left: `calc((${relativeWhiteIndex} + 1) * var(--white-key-width) - (var(--black-key-width) / 2))`,
+                }}
               />
             );
           })}
@@ -391,7 +435,9 @@ export function GrandPiano88() {
           </span>
           <output role="status" aria-live="polite" className={styles.notesActiveList}>
             {activeNoteNames.length === 0 ? (
-              <span className={styles.noNotesText}>Press or click piano keys to play chords...</span>
+              <span className={styles.noNotesText}>
+                Press or click piano keys (or keyboard A..K for C4..C5) to play chords...
+              </span>
             ) : (
               activeNoteNames.map((name) => (
                 <span key={name} className={styles.noteBadge}>

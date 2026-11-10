@@ -53,12 +53,12 @@ export const PianoKey = memo(
     );
   },
   (prevProps, nextProps) => {
-    // Strict memo comparison: only re-render if isPressed changes or style changes
+    // Strict memo comparison: only re-render if isPressed changes or style.left changes
     return (
       prevProps.isPressed === nextProps.isPressed &&
       prevProps.midi === nextProps.midi &&
       prevProps.noteName === nextProps.noteName &&
-      prevProps.style === nextProps.style
+      prevProps.style?.left === nextProps.style?.left
     );
   }
 );

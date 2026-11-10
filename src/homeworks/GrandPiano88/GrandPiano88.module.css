@@ -1,13 +1,11 @@
 /* GrandPiano88.module.css - Ebony & Ivory 88-Key Console */
 
-:root {
+.container {
   --white-key-width: 32px;
   --white-key-height: 160px;
   --black-key-width: 20px;
   --black-key-height: 104px;
-}
 
-.container {
   width: 100%;
   max-width: 1080px;
   margin: 0 auto;
@@ -279,8 +277,8 @@
 
 /* White Key (52 keys) */
 .keyWhite {
-  width: 32px;
-  height: 160px;
+  width: var(--white-key-width, 32px);
+  height: var(--white-key-height, 160px);
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 85%, #cbd5e1 100%);
   border: 1px solid #64748b;
   border-radius: 0 0 5px 5px;
@@ -306,8 +304,8 @@
 .keyBlack {
   position: absolute;
   top: 0;
-  width: 20px;
-  height: 104px;
+  width: var(--black-key-width, 20px);
+  height: var(--black-key-height, 104px);
   background: linear-gradient(180deg, #2a2d37 0%, #111217 65%, #050608 100%);
   border: 1px solid #000000;
   border-radius: 0 0 4px 4px;
@@ -392,6 +390,10 @@
 /* Responsive 375px Contract */
 @media (max-width: 375px) {
   .container {
+    --white-key-width: 26px;
+    --white-key-height: 130px;
+    --black-key-width: 16px;
+    --black-key-height: 84px;
     padding: 0.75rem;
     border-radius: 0;
   }
@@ -406,12 +408,12 @@
   }
 
   .keyWhite {
-    width: 26px;
-    height: 130px;
+    width: var(--white-key-width);
+    height: var(--white-key-height);
   }
 
   .keyBlack {
-    width: 16px;
-    height: 84px;
+    width: var(--black-key-width);
+    height: var(--black-key-height);
   }
 }
