@@ -427,18 +427,17 @@ export function SituationshipAnalyzer() {
       </section>
 
       {/* Preset Scenarios Strip */}
-      <section style={{ marginBottom: '1.5rem' }} aria-label="Kịch bản mẫu">
-        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>
+      <section className={styles.presetSection} aria-label="Kịch bản mẫu">
+        <span className={styles.presetLabel}>
           Kịch bản mẫu nhanh:
         </span>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
+        <div className={styles.presetGrid}>
           {DEFAULT_PRESET_SCENARIOS.map((preset) => (
             <button
               key={preset.title}
               type="button"
               onClick={() => handleApplyPreset(preset)}
               className={styles.miniBtn}
-              style={{ padding: '0.35rem 0.75rem' }}
             >
               {preset.title}
             </button>
@@ -460,7 +459,7 @@ export function SituationshipAnalyzer() {
           className={styles.liveOutput}
         >
           {actionLogs.length === 0 ? (
-            <div style={{ color: '#64748b', fontStyle: 'italic', padding: '0.5rem 0' }}>
+            <div style={{ color: '#94a3b8', fontStyle: 'italic', padding: '0.5rem 0' }}>
               Chưa có tương tác nào. Hãy kéo thanh trượt nỗ lực hoặc đổi trạng thái quan hệ.
             </div>
           ) : (
@@ -472,7 +471,7 @@ export function SituationshipAnalyzer() {
                   </strong>{' '}
                   {log.message}
                 </span>
-                <span style={{ color: '#64748b' }}>{log.timestamp}</span>
+                <span className={styles.logTimestamp}>{log.timestamp}</span>
               </div>
             ))
           )}
