@@ -1,0 +1,481 @@
+/* SituationshipAnalyzer.module.css - 'Hẹn Hò Nhưng Không Yêu' Theme */
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: linear-gradient(160deg, #12141f 0%, #090a10 100%);
+  border: 1px solid #232738;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.header {
+  border-bottom: 1px solid #232738;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.songTag {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #fb7185;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fsmTag {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #c084fc;
+  font-size: 0.725rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.title {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Finite State Machine (FSM) Stage Visualizer */
+.fsmSection {
+  background: #0f111a;
+  border: 1px solid #1e2230;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.fsmTitle {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phaseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.6rem;
+}
+
+.phasePill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: #161926;
+  border: 1px solid #282e42;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  color: #cbd5e1;
+}
+
+.phasePill:hover {
+  border-color: #475569;
+  background: #1c2030;
+}
+
+.phasePillActive {
+  border-color: #f43f5e !important;
+  background: rgba(244, 63, 94, 0.12) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.25);
+}
+
+.phaseIcon {
+  font-size: 1.1rem;
+}
+
+.phaseName {
+  font-weight: 700;
+}
+
+/* Red-Flag Alert Live Banner */
+.redFlagBanner {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(225, 29, 72, 0.25));
+  border: 2px solid #f43f5e;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  animation: pulseRedFlag 1.8s infinite alternate;
+}
+
+@keyframes pulseRedFlag {
+  from { box-shadow: 0 0 10px rgba(244, 63, 94, 0.3); }
+  to { box-shadow: 0 0 24px rgba(244, 63, 94, 0.6); }
+}
+
+.stableBanner {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid #10b981;
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #34d399;
+}
+
+.ghostedBanner {
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid #8b5cf6;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c084fc;
+}
+
+.bannerTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+.bannerDesc {
+  font-size: 0.8125rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.freeMemoryBtn {
+  background: #f43f5e;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.775rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.freeMemoryBtn:hover {
+  background: #e11d48;
+  transform: translateY(-1px);
+}
+
+/* Asymmetric Effort Simulator Section */
+.simulatorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.effortCard {
+  background: #0f111a;
+  border: 1px solid #1e2230;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.effortCardEm {
+  border-top: 3px solid #fb7185;
+}
+
+.effortCardRival {
+  border-top: 3px solid #f59e0b;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.actorTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.actorWeight {
+  font-size: 0.725rem;
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.formulaDisplay {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  background: #161926;
+  border: 1px solid #282e42;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.highlightImpact {
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.sliderRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.sliderLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.775rem;
+  color: #94a3b8;
+}
+
+.effortSlider {
+  width: 100%;
+  accent-color: #f43f5e;
+  cursor: pointer;
+}
+
+.effortSliderRival {
+  accent-color: #f59e0b;
+}
+
+.quickButtons {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.miniBtn {
+  background: #161926;
+  border: 1px solid #282e42;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.miniBtn:hover {
+  background: #23283b;
+  color: #f1f5f9;
+}
+
+/* Impact Disparity Visual Meter */
+.disparitySection {
+  background: #0f111a;
+  border: 1px solid #1e2230;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.disparityHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.6rem;
+}
+
+.barWrapper {
+  height: 20px;
+  background: #161926;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid #282e42;
+}
+
+.barEm {
+  background: linear-gradient(90deg, #fb7185, #f43f5e);
+  height: 100%;
+  transition: width 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.barRival {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  height: 100%;
+  transition: width 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* 'Seen Không Rep' Ghosting Timer Bar */
+.ghostingTimerCard {
+  background: #141724;
+  border: 1px dashed #383f5c;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.timerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.countdownBadge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 800;
+  color: #f43f5e;
+}
+
+.timerTrack {
+  height: 8px;
+  background: #090a10;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #282e42;
+}
+
+.timerFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #f43f5e);
+  transition: width 0.1s linear;
+}
+
+/* Action Log History & Live Output */
+.logSection {
+  background: #0f111a;
+  border: 1px solid #1e2230;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.logHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.liveOutput {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.4rem;
+  max-height: 140px;
+  overflow-y: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+.logItem {
+  display: flex;
+  justify-content: space-between;
+  background: #161926;
+  border: 1px solid #282e42;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+}
+
+.tagEm {
+  color: #fb7185;
+  font-weight: 700;
+}
+
+.tagRival {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+/* 375px Mobile Viewport Responsive Contract */
+@media (max-width: 375px) {
+  .container {
+    padding: 0.85rem;
+    border-radius: 0;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .phaseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .simulatorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .redFlagBanner, .stableBanner, .ghostedBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .freeMemoryBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
