@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useId, useRef } from 'react';
 import {
   RELATIONSHIP_PHASES,
   PHASE_METADATA,
@@ -27,6 +27,7 @@ export function SituationshipAnalyzer() {
 
   const myTriesInputId = useId();
   const rivalTriesInputId = useId();
+  const logTitleId = useId();
   const ghostIntervalRef = useRef(null);
 
   // [OK] DERIVED STATE: Purely computed during render without a redundant useEffect
@@ -68,14 +69,15 @@ export function SituationshipAnalyzer() {
       ]);
     }, 5000);
 
-    // Cleanup: clears both interval and timeout on unmount or phase/myTries change
+    // Deterministic Cleanup: clears both interval and timeout on unmount, phase change, or interaction
     return () => {
       window.clearTimeout(timerId);
       if (ghostIntervalRef.current) {
         window.clearInterval(ghostIntervalRef.current);
+        ghostIntervalRef.current = null;
       }
     };
-  }, [phase, myTries]);
+  }, [phase, myTries, rivalTries]);
 
   // Handle phase change
   const handleSelectPhase = (newPhase) => {
@@ -256,14 +258,24 @@ export function SituationshipAnalyzer() {
         </output>
       </section>
 
-      {/* 'Seen Không Rep' Ghosting Countdown Bar */}
+      {/* 'Seen Không Rep' Ghosting Countdown Bar with Immediate Unbind Action */}
       {phase === RELATIONSHIP_PHASES.DATING_NO_LOVE && (
         <section className={styles.ghostingTimerCard} aria-label="Đồng hồ đếm ngược Ghosting">
           <div className={styles.timerHeader}>
             <span>⏱ &apos;Seen Không Rep&apos; Ghosting Timeout:</span>
-            <span className={styles.countdownBadge}>
-              Tự động Exit sau: {ghostCountdown}s
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <span className={styles.countdownBadge}>
+                Tự động Exit sau: {ghostCountdown}s
+              </span>
+              <button
+                type="button"
+                onClick={handleFreeMemory}
+                className={styles.freeMemoryBtn}
+                style={{ padding: '0.25rem 0.65rem', fontSize: '0.75rem' }}
+              >
+                Unbind &amp; Free Memory
+              </button>
+            </div>
           </div>
           <div className={styles.timerTrack}>
             <div
@@ -397,7 +409,14 @@ export function SituationshipAnalyzer() {
             Em: {myPercentage}% vs Ai đó: {rivalPercentage}%
           </span>
         </div>
-        <div className={styles.barWrapper} role="meter" aria-label="Tỷ lệ nỗ lực">
+        <div
+          className={styles.barWrapper}
+          role="meter"
+          aria-label="Tỷ lệ nỗ lực"
+          aria-valuenow={myPercentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
           <div className={styles.barEm} style={{ width: `${myPercentage}%` }}>
             {myPercentage > 15 ? `Em (${myImpact})` : ''}
           </div>
@@ -427,15 +446,19 @@ export function SituationshipAnalyzer() {
         </div>
       </section>
 
-      {/* Interaction Event Log History */}
-      <section className={styles.logSection} aria-labelledby="action-log-heading">
+      {/* Interaction Event Log History (WCAG 2.2 AA role="log") */}
+      <section className={styles.logSection} aria-labelledby={logTitleId}>
         <div className={styles.logHeader}>
-          <h2 id="action-log-heading" style={{ margin: 0, fontSize: '0.75rem' }}>
+          <h2 id={logTitleId} style={{ margin: 0, fontSize: '0.75rem' }}>
             Nhật Ký Tín Hiệu Tương Tác (Immutable Action Log)
           </h2>
           <span>{actionLogs.length} events</span>
         </div>
-        <output className={styles.liveOutput} aria-live="polite">
+        <div
+          role="log"
+          aria-labelledby={logTitleId}
+          className={styles.liveOutput}
+        >
           {actionLogs.length === 0 ? (
             <div style={{ color: '#64748b', fontStyle: 'italic', padding: '0.5rem 0' }}>
               Chưa có tương tác nào. Hãy kéo thanh trượt nỗ lực hoặc đổi trạng thái quan hệ.
@@ -453,7 +476,7 @@ export function SituationshipAnalyzer() {
               </div>
             ))
           )}
-        </output>
+        </div>
       </section>
     </article>
   );
