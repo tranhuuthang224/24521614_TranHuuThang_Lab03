@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:verify": "node scripts/verify-checkpoint1.js"
+    "test:verify": "node scripts/verify-checkpoint1.js",
+    "test:verify:bonus": "node scripts/verify-checkpoint-bonus.js"
   },
   "dependencies": {
     "react": "^19.0.0",

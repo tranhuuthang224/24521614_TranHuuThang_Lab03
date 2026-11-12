@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Cloned and test folders
+24521614_TranHuuThang_Lab03-*
+Ex01/
